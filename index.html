@@ -355,12 +355,65 @@
     const mouse = { x: -9999, y: -9999 };
     const forceRadius = 60 * dpr;
 
-    canvas.addEventListener('mousemove', e => {
+    function setForce(clientX, clientY) {
       const r = canvas.getBoundingClientRect();
-      mouse.x = (e.clientX - r.left) * dpr;
-      mouse.y = (e.clientY - r.top) * dpr;
+      mouse.x = (clientX - r.left) * dpr;
+      mouse.y = (clientY - r.top) * dpr;
+    }
+    function clearForce() { mouse.x = -9999; mouse.y = -9999; }
+
+    // Ignore mouse events that the browser synthesizes from a touch — otherwise
+    // a tap fires a stray mousemove that re-pushes the dots after touchend.
+    let touchActive = false;
+    canvas.addEventListener('mousemove', e => {
+      if (touchActive) return;
+      setForce(e.clientX, e.clientY);
     });
-    canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    canvas.addEventListener('mouseleave', clearForce);
+
+    // Touch: a finger pushes dots only if it stays roughly still. If it travels
+    // (a scroll) before a short hold timer fires, we lock into 'scroll' mode and
+    // never push. Passive listeners => page still scrolls.
+    let touchStart = null, mode = null, holdTimer = null; // 'hold' | 'scroll'
+    const MOVE_TOL = 10;    // px of travel that flips a touch into a scroll
+    const HOLD_DELAY = 90;  // ms a finger must rest before it pushes dots
+
+    canvas.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      if (!t) return;
+      touchActive = true;
+      touchStart = { x: t.clientX, y: t.clientY };
+      mode = null;
+      clearForce(); // don't push on contact
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(() => {
+        if (mode === null) { mode = 'hold'; setForce(touchStart.x, touchStart.y); }
+      }, HOLD_DELAY);
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', e => {
+      const t = e.touches[0];
+      if (!t || !touchStart) return;
+      const moved = Math.hypot(t.clientX - touchStart.x, t.clientY - touchStart.y);
+
+      if (mode === null && moved > MOVE_TOL) { // moved before the hold fired => scroll
+        mode = 'scroll';
+        clearTimeout(holdTimer);
+        clearForce();
+        return;
+      }
+      if (mode === 'hold') setForce(t.clientX, t.clientY); // follow the held finger
+    }, { passive: true });
+
+    function endTouch() {
+      clearTimeout(holdTimer);
+      clearForce();
+      touchStart = null;
+      mode = null;
+      setTimeout(() => { touchActive = false; }, 350); // swallow synthetic mouse
+    }
+    canvas.addEventListener('touchend', endTouch, { passive: true });
+    canvas.addEventListener('touchcancel', endTouch, { passive: true });
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
