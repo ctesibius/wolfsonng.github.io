@@ -3,12 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Benjamin Nguyen — Aerospace Engineering</title>
-  <meta name="description" content="Senior Director of Engineering and Industry Advisory Council member with extensive aerospace engineering leadership experience.">
-  <meta property="og:title" content="Benjamin Nguyen — Aerospace Engineering">
-  <meta property="og:description" content="Seasoned aerospace engineering executive in design, management, and program/portfolio management.">
-  <meta property="og:type" content="website">
-  <meta name="author" content="Benjamin Nguyen">
+  <title>Bin Nguyen — Engineering</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -62,20 +57,25 @@
     }
 
     .theme-toggle {
-      width: 38px; height: 38px;
-      display: inline-flex; align-items: center; justify-content: center;
-      background: transparent;
+      width: 46px; height: 26px;
+      background: var(--bg-secondary);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text-secondary);
+      border-radius: 13px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      position: relative;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
     }
-    .theme-toggle:hover { border-color: var(--text-secondary); color: var(--text-primary); }
-    .theme-toggle svg { width: 18px; height: 18px; display: block; }
-    .theme-toggle .icon-sun { display: none; }
-    html.dark .theme-toggle .icon-sun { display: block; }
-    html.dark .theme-toggle .icon-moon { display: none; }
+    .theme-toggle:hover { border-color: var(--text-secondary); }
+    .toggle-ball {
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 20px; height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    html.dark .toggle-ball { transform: translateX(20px); }
 
     .hero { text-align: center; margin-bottom: 64px; }
 
@@ -87,13 +87,9 @@
     .profile-canvas { width: 100%; height: 100%; display: block; }
 
     h1 { font-size: 40px; font-weight: 700; letter-spacing: -1px; margin-bottom: 6px; }
-    .title { font-size: 16px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 500; }
-    .location {
-      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--text-secondary); margin-bottom: 24px;
-    }
+    .title { font-size: 16px; color: var(--text-secondary); margin-bottom: 24px; font-weight: 500; }
     .bio {
-      max-width: 520px; margin: 0 auto;
+      max-width: 480px; margin: 0 auto;
       font-size: 15px; line-height: 1.7; color: var(--text-secondary);
     }
 
@@ -105,23 +101,6 @@
     }
     .section p { font-size: 15px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 12px; }
 
-    .achievements { list-style: none; }
-    .achievements li {
-      position: relative;
-      padding-left: 22px;
-      font-size: 15px; line-height: 1.7;
-      color: var(--text-secondary);
-      margin-bottom: 10px;
-    }
-    .achievements li::before {
-      content: '';
-      position: absolute;
-      left: 4px; top: 11px;
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--text-secondary);
-    }
-
     .skills { display: flex; flex-wrap: wrap; gap: 8px; }
     .skill-tag {
       padding: 6px 13px;
@@ -131,19 +110,6 @@
       transition: all 0.2s ease;
     }
     .skill-tag:hover { border-color: var(--text-secondary); }
-
-    .timeline { list-style: none; }
-    .timeline-item {
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .timeline-item:last-child { border-bottom: none; }
-    .timeline-date {
-      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
-      color: var(--text-secondary); margin-bottom: 4px;
-    }
-    .timeline-role { font-size: 15px; font-weight: 600; color: var(--text-primary); }
-    .timeline-org { font-size: 14px; color: var(--text-secondary); }
 
     .links { display: flex; flex-direction: column; gap: 2px; }
     .link-item {
@@ -160,60 +126,79 @@
     footer {
       margin-top: 64px; padding-top: 24px;
       border-top: 1px solid var(--border);
-      display: flex; flex-direction: column; align-items: center; gap: 16px;
-      font-size: 13px; color: var(--text-secondary);
+      text-align: center; font-size: 13px; color: var(--text-secondary);
     }
 
     @media (max-width: 600px) {
-      .container { padding: 56px 20px 64px; }
+      .container { padding: 32px 20px 64px; }
       h1 { font-size: 32px; }
+      header { margin-bottom: 48px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <header>
+      <div class="logo">Bin Nguyen</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <div class="toggle-ball"></div>
+      </button>
+    </header>
+
     <section class="hero">
       <div class="profile-image-container">
         <canvas id="profileCanvas" class="profile-canvas"></canvas>
       </div>
-      <h1 id="name">Benjamin Nguyen</h1>
-      <p class="title" id="title"></p>
-      <p class="location" id="location"></p>
-      <p class="bio" id="bio"></p>
+      <h1>Bin Nguyen</h1>
+      <p class="title">Director of Engineering · Sunvair Aerospace Group</p>
+      <p class="bio">
+        Leading five engineering groups across aviation MRO, PMA, and compliance.
+        I build systems — from ERP integrations to creative coding experiments — and care about
+        getting the hard technical details right.
+      </p>
     </section>
 
     <section class="section">
       <div class="section-label">About</div>
-      <ul class="achievements" id="achievements"></ul>
+      <p>
+        Director of Engineering overseeing Product Development, Sustainment, Systems &amp; Compliance,
+        the PMO, and Reliability Engineering. Work spans component-level MRO, Parts Manufacturer
+        Approval, RS-DER, and fabrication.
+      </p>
+      <p>
+        Regulatory scope across FAA, EASA, and other international aviation authorities.
+      </p>
     </section>
 
     <section class="section">
-      <div class="section-label">Core Expertise</div>
-      <div class="skills" id="skills"></div>
-    </section>
-
-    <section class="section">
-      <div class="section-label">Career</div>
-      <ul class="timeline" id="career"></ul>
+      <div class="section-label">Focus</div>
+      <div class="skills">
+        <span class="skill-tag">Systems Architecture</span>
+        <span class="skill-tag">Aerospace MRO</span>
+        <span class="skill-tag">Regulatory Compliance</span>
+        <span class="skill-tag">Data Analytics</span>
+        <span class="skill-tag">Full-Stack Development</span>
+        <span class="skill-tag">Team Leadership</span>
+        <span class="skill-tag">Creative Coding</span>
+      </div>
     </section>
 
     <section class="section">
       <div class="section-label">Connect</div>
-      <div class="links" id="connect"></div>
+      <div class="links">
+        <a href="https://github.com/ctesibius" class="link-item">
+          <span>GitHub</span><span class="arrow">→</span>
+        </a>
+        <a href="https://linkedin.com" class="link-item">
+          <span>LinkedIn</span><span class="arrow">→</span>
+        </a>
+        <a href="mailto:hello@bnguyen.net" class="link-item">
+          <span>Email</span><span class="arrow">→</span>
+        </a>
+      </div>
     </section>
 
-    <footer>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-        </svg>
-      </button>
-      <span>© 2026 Benjamin Nguyen</span>
-    </footer>
+    <footer>© 2026 Bin Nguyen</footer>
   </div>
 
   <script>
@@ -221,104 +206,13 @@
     const root = document.documentElement;
     const toggle = document.getElementById('themeToggle');
     const saved = localStorage.getItem('theme');
-    if (saved !== 'light') root.classList.add('dark'); // default dark
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
 
     toggle.addEventListener('click', () => {
       root.classList.toggle('dark');
       localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
     });
-
-    // ---- Content from profile.md ----
-    const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-
-    async function loadProfile() {
-      try {
-        const md = await (await fetch('profile.md')).text();
-        const lines = md.split('\n');
-
-        let name = '', title = '', location = '', bio = '';
-        const expertise = [], achievements = [];
-        let listMode = null; // 'expertise' | 'achievements'
-
-        for (let raw of lines) {
-          const line = raw.trim();
-          if (!line) continue;
-
-          if (line.startsWith('# ')) {
-            name = line.slice(2).trim();
-          } else if (/^\*\*.+\*\*/.test(line) && !title) {
-            // bold title line, possibly with trailing role text
-            title = line.replace(/\*\*/g, '').trim();
-          } else if (/^\*[^*].*\*$/.test(line) && !location) {
-            location = line.replace(/^\*|\*$/g, '').trim();
-          } else if (line.startsWith('## ')) {
-            const h = line.slice(3).toLowerCase();
-            if (h.includes('expertise')) listMode = 'expertise';
-            else if (h.includes('achievement')) listMode = 'achievements';
-            else listMode = null;
-          } else if (line.startsWith('- ')) {
-            const item = line.slice(2).trim();
-            if (listMode === 'expertise') expertise.push(item);
-            else if (listMode === 'achievements') achievements.push(item);
-          } else if (!line.startsWith('#') && !line.startsWith('*') && !line.startsWith('-') && !bio && line.length > 50) {
-            bio = line;
-          }
-        }
-
-        if (name) {
-          document.getElementById('name').textContent = name;
-          document.title = name + ' — Aerospace Engineering';
-        }
-        document.getElementById('title').textContent = title;
-        document.getElementById('location').textContent = location;
-        document.getElementById('bio').textContent = bio;
-
-        document.getElementById('skills').innerHTML =
-          expertise.map(s => `<span class="skill-tag">${esc(s)}</span>`).join('');
-        document.getElementById('achievements').innerHTML =
-          achievements.map(a => `<li>${esc(a)}</li>`).join('');
-      } catch (e) { console.error('profile load failed', e); }
-    }
-
-    async function loadCareer() {
-      try {
-        const md = await (await fetch('career.md')).text();
-        const blocks = md.split('## ').slice(1);
-        const items = blocks.map(b => {
-          const ls = b.split('\n').map(l => l.trim()).filter(Boolean);
-          const date = ls[0] || '';
-          const role = (ls[1] || '').replace(/\*\*/g, '').trim();
-          const org = (ls[2] || '').replace(/^\*|\*$/g, '').replace(/\*/g, '').trim();
-          if (!date) return '';
-          return `<li class="timeline-item">
-            <div class="timeline-date">${esc(date)}</div>
-            <div class="timeline-role">${esc(role)}</div>
-            <div class="timeline-org">${esc(org)}</div>
-          </li>`;
-        }).join('');
-        document.getElementById('career').innerHTML = items;
-      } catch (e) { console.error('career load failed', e); }
-    }
-
-    async function loadContact() {
-      try {
-        const md = await (await fetch('contact.md')).text();
-        const links = [];
-        const emailMatch = md.match(/\*\*Email:\*\*\s*([^\s]+@[^\s]+)/i);
-        if (emailMatch) links.push({ label: 'Email', href: 'mailto:' + emailMatch[1] });
-        const liMatch = md.match(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/);
-        if (liMatch) links.push({ label: 'LinkedIn', href: liMatch[2] });
-
-        document.getElementById('connect').innerHTML = links.map(l =>
-          `<a href="${esc(l.href)}" class="link-item">
-            <span>${esc(l.label)}</span><span class="arrow">→</span>
-          </a>`).join('');
-      } catch (e) { console.error('contact load failed', e); }
-    }
-
-    loadProfile();
-    loadCareer();
-    loadContact();
 
     // ---- Dot matrix portrait ----
     const RAW_DOTS = [{"x":150,"y":5,"b":68.8},{"x":120,"y":10,"b":89.2},{"x":125,"y":10,"b":65.5},{"x":170,"y":10,"b":62.0},{"x":175,"y":10,"b":71.4},{"x":190,"y":20,"b":100.3},{"x":95,"y":25,"b":91.0},{"x":195,"y":25,"b":68.8},{"x":90,"y":30,"b":73.1},{"x":85,"y":35,"b":63.8},{"x":90,"y":35,"b":81.6},{"x":85,"y":40,"b":62.9},{"x":80,"y":45,"b":109.6},{"x":85,"y":45,"b":74.8},{"x":215,"y":50,"b":86.7},{"x":115,"y":55,"b":79.9},{"x":120,"y":55,"b":87.5},{"x":125,"y":55,"b":89.2},{"x":130,"y":55,"b":77.3},{"x":135,"y":55,"b":75.6},{"x":140,"y":55,"b":66.3},{"x":145,"y":55,"b":66.3},{"x":105,"y":60,"b":90.1},{"x":110,"y":60,"b":105.4},{"x":115,"y":60,"b":105.4},{"x":120,"y":60,"b":103.7},{"x":125,"y":60,"b":105.4},{"x":130,"y":60,"b":97.8},{"x":135,"y":60,"b":91.8},{"x":140,"y":60,"b":79.9},{"x":145,"y":60,"b":75.6},{"x":150,"y":60,"b":72.2},{"x":155,"y":60,"b":63.8},{"x":75,"y":65,"b":106.2},{"x":95,"y":65,"b":73.1},{"x":100,"y":65,"b":108.0},{"x":105,"y":65,"b":127.5},{"x":110,"y":65,"b":125.8},{"x":115,"y":65,"b":119.8},{"x":120,"y":65,"b":120.7},{"x":125,"y":65,"b":113.0},{"x":130,"y":65,"b":106.2},{"x":135,"y":65,"b":97.8},{"x":140,"y":65,"b":91.0},{"x":145,"y":65,"b":87.5},{"x":150,"y":65,"b":81.6},{"x":155,"y":65,"b":71.4},{"x":75,"y":70,"b":108.8},{"x":80,"y":70,"b":101.1},{"x":85,"y":70,"b":100.3},{"x":95,"y":70,"b":128.3},{"x":100,"y":70,"b":143.7},{"x":105,"y":70,"b":144.5},{"x":110,"y":70,"b":136.8},{"x":115,"y":70,"b":130.9},{"x":120,"y":70,"b":126.6},{"x":125,"y":70,"b":119.0},{"x":130,"y":70,"b":113.0},{"x":135,"y":70,"b":102.0},{"x":140,"y":70,"b":100.3},{"x":145,"y":70,"b":96.0},{"x":150,"y":70,"b":85.0},{"x":155,"y":70,"b":72.2},{"x":160,"y":70,"b":61.2},{"x":90,"y":75,"b":95.2},{"x":95,"y":75,"b":158.9},{"x":100,"y":75,"b":166.6},{"x":105,"y":75,"b":155.5},{"x":110,"y":75,"b":141.1},{"x":115,"y":75,"b":133.4},{"x":120,"y":75,"b":127.5},{"x":125,"y":75,"b":124.1},{"x":130,"y":75,"b":116.5},{"x":135,"y":75,"b":110.5},{"x":140,"y":75,"b":103.7},{"x":145,"y":75,"b":101.1},{"x":150,"y":75,"b":89.2},{"x":155,"y":75,"b":74.0},{"x":160,"y":75,"b":62.9},{"x":85,"y":80,"b":64.6},{"x":90,"y":80,"b":157.2},{"x":95,"y":80,"b":169.2},{"x":100,"y":80,"b":170.0},{"x":105,"y":80,"b":152.2},{"x":110,"y":80,"b":141.1},{"x":115,"y":80,"b":136.8},{"x":120,"y":80,"b":130.0},{"x":125,"y":80,"b":124.1},{"x":130,"y":80,"b":120.7},{"x":135,"y":80,"b":113.9},{"x":140,"y":80,"b":110.5},{"x":145,"y":80,"b":103.7},{"x":150,"y":80,"b":91.0},{"x":155,"y":80,"b":74.8},{"x":160,"y":80,"b":63.8},{"x":85,"y":85,"b":111.3},{"x":90,"y":85,"b":171.7},{"x":95,"y":85,"b":171.7},{"x":100,"y":85,"b":162.3},{"x":105,"y":85,"b":153.8},{"x":110,"y":85,"b":140.2},{"x":115,"y":85,"b":135.2},{"x":120,"y":85,"b":131.8},{"x":125,"y":85,"b":127.5},{"x":130,"y":85,"b":120.7},{"x":135,"y":85,"b":113.9},{"x":140,"y":85,"b":109.6},{"x":145,"y":85,"b":105.4},{"x":150,"y":85,"b":99.5},{"x":155,"y":85,"b":83.3},{"x":160,"y":85,"b":69.7},{"x":165,"y":85,"b":62.0},{"x":85,"y":90,"b":139.4},{"x":90,"y":90,"b":178.5},{"x":95,"y":90,"b":173.4},{"x":100,"y":90,"b":160.7},{"x":105,"y":90,"b":151.3},{"x":110,"y":90,"b":138.5},{"x":115,"y":90,"b":136.8},{"x":120,"y":90,"b":128.3},{"x":125,"y":90,"b":125.8},{"x":130,"y":90,"b":118.1},{"x":135,"y":90,"b":117.3},{"x":140,"y":90,"b":113.0},{"x":145,"y":90,"b":110.5},{"x":150,"y":90,"b":100.3},{"x":155,"y":90,"b":87.5},{"x":160,"y":90,"b":79.0},{"x":165,"y":90,"b":65.5},{"x":85,"y":95,"b":177.7},{"x":90,"y":95,"b":177.7},{"x":95,"y":95,"b":175.9},{"x":100,"y":95,"b":162.3},{"x":105,"y":95,"b":147.9},{"x":110,"y":95,"b":136.8},{"x":115,"y":95,"b":130.0},{"x":120,"y":95,"b":127.5},{"x":125,"y":95,"b":121.5},{"x":130,"y":95,"b":123.2},{"x":135,"y":95,"b":124.1},{"x":140,"y":95,"b":112.2},{"x":145,"y":95,"b":109.6},{"x":150,"y":95,"b":100.3},{"x":155,"y":95,"b":91.8},{"x":160,"y":95,"b":75.6},{"x":165,"y":95,"b":64.6},{"x":80,"y":100,"b":69.7},{"x":85,"y":100,"b":172.5},{"x":90,"y":100,"b":162.3},{"x":95,"y":100,"b":131.8},{"x":100,"y":100,"b":131.8},{"x":105,"y":100,"b":139.4},{"x":110,"y":100,"b":136.8},{"x":115,"y":100,"b":126.6},{"x":120,"y":100,"b":123.2},{"x":125,"y":100,"b":129.2},{"x":130,"y":100,"b":123.2},{"x":135,"y":100,"b":131.8},{"x":140,"y":100,"b":123.2},{"x":145,"y":100,"b":114.8},{"x":150,"y":100,"b":104.5},{"x":155,"y":100,"b":72.2},{"x":160,"y":100,"b":66.3},{"x":80,"y":105,"b":95.2},{"x":85,"y":105,"b":162.3},{"x":90,"y":105,"b":113.9},{"x":95,"y":105,"b":81.6},{"x":100,"y":105,"b":60.4},{"x":110,"y":105,"b":94.3},{"x":115,"y":105,"b":121.5},{"x":120,"y":105,"b":125.0},{"x":125,"y":105,"b":134.3},{"x":130,"y":105,"b":130.9},{"x":135,"y":105,"b":120.7},{"x":140,"y":105,"b":81.6},{"x":80,"y":110,"b":112.2},{"x":85,"y":110,"b":169.2},{"x":90,"y":110,"b":158.1},{"x":95,"y":110,"b":130.0},{"x":100,"y":110,"b":121.5},{"x":105,"y":110,"b":85.0},{"x":110,"y":110,"b":70.5},{"x":115,"y":110,"b":94.3},{"x":120,"y":110,"b":113.9},{"x":125,"y":110,"b":127.5},{"x":130,"y":110,"b":113.0},{"x":135,"y":110,"b":90.1},{"x":140,"y":110,"b":72.2},{"x":150,"y":110,"b":65.5},{"x":155,"y":110,"b":76.5},{"x":160,"y":110,"b":64.6},{"x":80,"y":115,"b":149.6},{"x":85,"y":115,"b":167.4},{"x":90,"y":115,"b":169.2},{"x":95,"y":115,"b":121.5},{"x":100,"y":115,"b":104.5},{"x":105,"y":115,"b":87.5},{"x":110,"y":115,"b":101.1},{"x":115,"y":115,"b":117.3},{"x":120,"y":115,"b":134.3},{"x":125,"y":115,"b":128.3},{"x":130,"y":115,"b":95.2},{"x":135,"y":115,"b":79.9},{"x":140,"y":115,"b":100.3},{"x":145,"y":115,"b":112.2},{"x":150,"y":115,"b":113.0},{"x":155,"y":115,"b":98.6},{"x":160,"y":115,"b":61.2},{"x":165,"y":115,"b":60.4},{"x":80,"y":120,"b":158.9},{"x":85,"y":120,"b":170.0},{"x":90,"y":120,"b":162.3},{"x":115,"y":120,"b":111.3},{"x":120,"y":120,"b":139.4},{"x":125,"y":120,"b":130.9},{"x":130,"y":120,"b":85.8},{"x":135,"y":120,"b":73.1},{"x":140,"y":120,"b":98.6},{"x":145,"y":120,"b":112.2},{"x":150,"y":120,"b":73.1},{"x":80,"y":125,"b":170.8},{"x":85,"y":125,"b":168.3},{"x":90,"y":125,"b":130.0},{"x":95,"y":125,"b":145.3},{"x":100,"y":125,"b":74.8},{"x":115,"y":125,"b":97.8},{"x":120,"y":125,"b":136.0},{"x":125,"y":125,"b":125.8},{"x":130,"y":125,"b":69.7},{"x":140,"y":125,"b":99.5},{"x":150,"y":125,"b":113.0},{"x":155,"y":125,"b":64.6},{"x":80,"y":130,"b":175.1},{"x":85,"y":130,"b":180.2},{"x":90,"y":130,"b":169.2},{"x":95,"y":130,"b":145.3},{"x":100,"y":130,"b":123.2},{"x":105,"y":130,"b":89.2},{"x":110,"y":130,"b":88.4},{"x":115,"y":130,"b":116.5},{"x":120,"y":130,"b":152.2},{"x":125,"y":130,"b":109.6},{"x":130,"y":130,"b":61.2},{"x":140,"y":130,"b":91.0},{"x":145,"y":130,"b":98.6},{"x":150,"y":130,"b":103.7},{"x":155,"y":130,"b":109.6},{"x":160,"y":130,"b":87.5},{"x":80,"y":135,"b":176.8},{"x":85,"y":135,"b":178.5},{"x":90,"y":135,"b":160.7},{"x":95,"y":135,"b":147.0},{"x":100,"y":135,"b":122.4},{"x":105,"y":135,"b":115.6},{"x":110,"y":135,"b":132.6},{"x":115,"y":135,"b":144.5},{"x":120,"y":135,"b":171.7},{"x":125,"y":135,"b":102.0},{"x":140,"y":135,"b":80.8},{"x":145,"y":135,"b":103.7},{"x":150,"y":135,"b":105.4},{"x":155,"y":135,"b":106.2},{"x":160,"y":135,"b":97.8},{"x":165,"y":135,"b":92.6},{"x":170,"y":135,"b":88.4},{"x":175,"y":135,"b":79.9},{"x":180,"y":135,"b":64.6},{"x":80,"y":140,"b":184.4},{"x":85,"y":140,"b":170.0},{"x":90,"y":140,"b":148.8},{"x":95,"y":140,"b":138.5},{"x":100,"y":140,"b":136.8},{"x":105,"y":140,"b":142.8},{"x":110,"y":140,"b":135.2},{"x":115,"y":140,"b":165.8},{"x":120,"y":140,"b":141.9},{"x":125,"y":140,"b":91.0},{"x":130,"y":140,"b":62.9},{"x":140,"y":140,"b":72.2},{"x":145,"y":140,"b":108.0},{"x":150,"y":140,"b":115.6},{"x":155,"y":140,"b":114.8},{"x":160,"y":140,"b":117.3},{"x":165,"y":140,"b":120.7},{"x":170,"y":140,"b":109.6},{"x":175,"y":140,"b":91.0},{"x":180,"y":140,"b":73.1},{"x":185,"y":140,"b":63.8},{"x":80,"y":145,"b":187.0},{"x":85,"y":145,"b":173.4},{"x":90,"y":145,"b":148.8},{"x":95,"y":145,"b":141.9},{"x":100,"y":145,"b":142.8},{"x":105,"y":145,"b":135.2},{"x":110,"y":145,"b":149.6},{"x":115,"y":145,"b":178.5},{"x":120,"y":145,"b":116.5},{"x":125,"y":145,"b":79.9},{"x":140,"y":145,"b":63.8},{"x":145,"y":145,"b":100.3},{"x":150,"y":145,"b":121.5},{"x":155,"y":145,"b":119.0},{"x":160,"y":145,"b":125.0},{"x":165,"y":145,"b":121.5},{"x":170,"y":145,"b":113.0},{"x":175,"y":145,"b":92.6},{"x":180,"y":145,"b":79.9},{"x":185,"y":145,"b":70.5},{"x":80,"y":150,"b":185.3},{"x":85,"y":150,"b":181.0},{"x":90,"y":150,"b":160.7},{"x":95,"y":150,"b":147.9},{"x":100,"y":150,"b":138.5},{"x":105,"y":150,"b":136.0},{"x":110,"y":150,"b":150.4},{"x":115,"y":150,"b":176.8},{"x":120,"y":150,"b":118.1},{"x":125,"y":150,"b":78.2},{"x":135,"y":150,"b":68.8},{"x":145,"y":150,"b":70.5},{"x":150,"y":150,"b":121.5},{"x":155,"y":150,"b":127.5},{"x":160,"y":150,"b":126.6},{"x":165,"y":150,"b":122.4},{"x":170,"y":150,"b":113.9},{"x":175,"y":150,"b":91.8},{"x":180,"y":150,"b":80.8},{"x":185,"y":150,"b":67.1},{"x":80,"y":155,"b":178.5},{"x":85,"y":155,"b":170.8},{"x":90,"y":155,"b":165.8},{"x":95,"y":155,"b":146.2},{"x":100,"y":155,"b":128.3},{"x":105,"y":155,"b":126.6},{"x":110,"y":155,"b":167.4},{"x":115,"y":155,"b":152.2},{"x":120,"y":155,"b":124.1},{"x":125,"y":155,"b":80.8},{"x":130,"y":155,"b":62.9},{"x":135,"y":155,"b":75.6},{"x":140,"y":155,"b":68.0},{"x":150,"y":155,"b":105.4},{"x":155,"y":155,"b":129.2},{"x":160,"y":155,"b":125.0},{"x":165,"y":155,"b":121.5},{"x":170,"y":155,"b":111.3},{"x":175,"y":155,"b":96.9},{"x":180,"y":155,"b":79.0},{"x":185,"y":155,"b":66.3},{"x":80,"y":160,"b":181.0},{"x":85,"y":160,"b":174.2},{"x":90,"y":160,"b":155.5},{"x":95,"y":160,"b":138.5},{"x":100,"y":160,"b":124.1},{"x":105,"y":160,"b":127.5},{"x":110,"y":160,"b":102.8},{"x":115,"y":160,"b":77.3},{"x":120,"y":160,"b":109.6},{"x":140,"y":160,"b":75.6},{"x":150,"y":160,"b":103.7},{"x":155,"y":160,"b":129.2},{"x":160,"y":160,"b":125.0},{"x":165,"y":160,"b":119.8},{"x":170,"y":160,"b":101.1},{"x":175,"y":160,"b":90.1},{"x":180,"y":160,"b":74.0},{"x":185,"y":160,"b":63.8},{"x":80,"y":165,"b":176.8},{"x":85,"y":165,"b":169.2},{"x":90,"y":165,"b":149.6},{"x":95,"y":165,"b":136.8},{"x":100,"y":165,"b":125.0},{"x":105,"y":165,"b":138.5},{"x":110,"y":165,"b":140.2},{"x":115,"y":165,"b":128.3},{"x":120,"y":165,"b":125.0},{"x":125,"y":165,"b":86.7},{"x":130,"y":165,"b":74.0},{"x":135,"y":165,"b":77.3},{"x":140,"y":165,"b":72.2},{"x":145,"y":165,"b":86.7},{"x":150,"y":165,"b":104.5},{"x":155,"y":165,"b":121.5},{"x":160,"y":165,"b":119.8},{"x":165,"y":165,"b":118.1},{"x":170,"y":165,"b":99.5},{"x":175,"y":165,"b":86.7},{"x":180,"y":165,"b":74.0},{"x":185,"y":165,"b":62.0},{"x":80,"y":170,"b":177.7},{"x":85,"y":170,"b":171.7},{"x":90,"y":170,"b":145.3},{"x":95,"y":170,"b":141.9},{"x":100,"y":170,"b":144.5},{"x":105,"y":170,"b":147.9},{"x":110,"y":170,"b":147.9},{"x":115,"y":170,"b":127.5},{"x":120,"y":170,"b":93.5},{"x":125,"y":170,"b":104.5},{"x":130,"y":170,"b":99.5},{"x":135,"y":170,"b":85.0},{"x":140,"y":170,"b":85.0},{"x":145,"y":170,"b":82.5},{"x":150,"y":170,"b":91.0},{"x":155,"y":170,"b":111.3},{"x":160,"y":170,"b":113.9},{"x":165,"y":170,"b":105.4},{"x":170,"y":170,"b":96.9},{"x":175,"y":170,"b":80.8},{"x":180,"y":170,"b":68.0},{"x":80,"y":175,"b":170.0},{"x":85,"y":175,"b":166.6},{"x":90,"y":175,"b":157.2},{"x":95,"y":175,"b":153.0},{"x":100,"y":175,"b":135.2},{"x":105,"y":175,"b":149.6},{"x":110,"y":175,"b":159.8},{"x":115,"y":175,"b":126.6},{"x":120,"y":175,"b":107.1},{"x":125,"y":175,"b":81.6},{"x":130,"y":175,"b":82.5},{"x":135,"y":175,"b":72.2},{"x":140,"y":175,"b":73.1},{"x":145,"y":175,"b":73.1},{"x":150,"y":175,"b":83.3},{"x":155,"y":175,"b":97.8},{"x":160,"y":175,"b":106.2},{"x":165,"y":175,"b":91.8},{"x":170,"y":175,"b":85.0},{"x":175,"y":175,"b":75.6},{"x":180,"y":175,"b":67.1},{"x":185,"y":175,"b":63.8},{"x":85,"y":180,"b":165.8},{"x":90,"y":180,"b":160.7},{"x":95,"y":180,"b":154.7},{"x":100,"y":180,"b":132.6},{"x":105,"y":180,"b":148.8},{"x":110,"y":180,"b":103.7},{"x":115,"y":180,"b":98.6},{"x":120,"y":180,"b":108.8},{"x":125,"y":180,"b":87.5},{"x":130,"y":180,"b":72.2},{"x":155,"y":180,"b":101.1},{"x":160,"y":180,"b":99.5},{"x":165,"y":180,"b":87.5},{"x":170,"y":180,"b":79.0},{"x":175,"y":180,"b":72.2},{"x":180,"y":180,"b":68.8},{"x":185,"y":180,"b":63.8},{"x":85,"y":185,"b":175.9},{"x":90,"y":185,"b":170.0},{"x":95,"y":185,"b":163.2},{"x":100,"y":185,"b":126.6},{"x":110,"y":185,"b":69.7},{"x":115,"y":185,"b":187.8},{"x":120,"y":185,"b":175.1},{"x":125,"y":185,"b":124.1},{"x":130,"y":185,"b":143.7},{"x":135,"y":185,"b":133.4},{"x":140,"y":185,"b":65.5},{"x":155,"y":185,"b":104.5},{"x":160,"y":185,"b":98.6},{"x":165,"y":185,"b":85.8},{"x":170,"y":185,"b":74.8},{"x":175,"y":185,"b":72.2},{"x":180,"y":185,"b":73.1},{"x":185,"y":185,"b":62.0},{"x":85,"y":190,"b":180.2},{"x":90,"y":190,"b":171.7},{"x":95,"y":190,"b":164.0},{"x":100,"y":190,"b":138.5},{"x":105,"y":190,"b":151.3},{"x":110,"y":190,"b":155.5},{"x":115,"y":190,"b":140.2},{"x":120,"y":190,"b":104.5},{"x":125,"y":190,"b":88.4},{"x":130,"y":190,"b":67.1},{"x":150,"y":190,"b":74.0},{"x":155,"y":190,"b":103.7},{"x":160,"y":190,"b":97.8},{"x":165,"y":190,"b":82.5},{"x":170,"y":190,"b":71.4},{"x":175,"y":190,"b":75.6},{"x":180,"y":190,"b":76.5},{"x":85,"y":195,"b":63.8},{"x":90,"y":195,"b":175.1},{"x":95,"y":195,"b":171.7},{"x":100,"y":195,"b":167.4},{"x":105,"y":195,"b":169.2},{"x":110,"y":195,"b":171.7},{"x":115,"y":195,"b":134.3},{"x":120,"y":195,"b":107.1},{"x":125,"y":195,"b":91.0},{"x":130,"y":195,"b":80.8},{"x":135,"y":195,"b":74.0},{"x":140,"y":195,"b":74.8},{"x":145,"y":195,"b":73.1},{"x":150,"y":195,"b":83.3},{"x":155,"y":195,"b":95.2},{"x":160,"y":195,"b":88.4},{"x":165,"y":195,"b":70.5},{"x":170,"y":195,"b":64.6},{"x":175,"y":195,"b":72.2},{"x":180,"y":195,"b":63.8},{"x":90,"y":200,"b":170.8},{"x":95,"y":200,"b":166.6},{"x":100,"y":200,"b":169.2},{"x":105,"y":200,"b":176.8},{"x":110,"y":200,"b":170.8},{"x":115,"y":200,"b":152.2},{"x":120,"y":200,"b":132.6},{"x":125,"y":200,"b":119.0},{"x":130,"y":200,"b":111.3},{"x":135,"y":200,"b":100.3},{"x":140,"y":200,"b":87.5},{"x":145,"y":200,"b":84.1},{"x":150,"y":200,"b":84.1},{"x":155,"y":200,"b":85.8},{"x":160,"y":200,"b":79.9},{"x":165,"y":200,"b":62.0},{"x":170,"y":200,"b":62.9},{"x":90,"y":205,"b":92.6},{"x":95,"y":205,"b":171.7},{"x":100,"y":205,"b":178.5},{"x":105,"y":205,"b":179.3},{"x":110,"y":205,"b":170.0},{"x":115,"y":205,"b":155.5},{"x":120,"y":205,"b":141.9},{"x":125,"y":205,"b":128.3},{"x":130,"y":205,"b":114.8},{"x":135,"y":205,"b":106.2},{"x":140,"y":205,"b":93.5},{"x":145,"y":205,"b":85.0},{"x":150,"y":205,"b":81.6},{"x":155,"y":205,"b":79.9},{"x":160,"y":205,"b":65.5},{"x":220,"y":205,"b":84.1},{"x":95,"y":210,"b":173.4},{"x":100,"y":210,"b":184.4},{"x":105,"y":210,"b":179.3},{"x":110,"y":210,"b":175.1},{"x":115,"y":210,"b":152.2},{"x":120,"y":210,"b":141.1},{"x":125,"y":210,"b":115.6},{"x":130,"y":210,"b":104.5},{"x":135,"y":210,"b":101.1},{"x":140,"y":210,"b":95.2},{"x":145,"y":210,"b":83.3},{"x":150,"y":210,"b":74.0},{"x":155,"y":210,"b":64.6},{"x":215,"y":210,"b":87.5},{"x":220,"y":210,"b":81.6},{"x":100,"y":215,"b":172.5},{"x":105,"y":215,"b":181.0},{"x":110,"y":215,"b":168.3},{"x":115,"y":215,"b":151.3},{"x":120,"y":215,"b":129.2},{"x":125,"y":215,"b":123.2},{"x":130,"y":215,"b":107.1},{"x":135,"y":215,"b":96.0},{"x":140,"y":215,"b":86.7},{"x":145,"y":215,"b":73.1},{"x":150,"y":215,"b":62.0},{"x":205,"y":215,"b":80.8},{"x":210,"y":215,"b":91.0},{"x":215,"y":215,"b":88.4},{"x":220,"y":215,"b":65.5},{"x":105,"y":220,"b":165.8},{"x":110,"y":220,"b":162.3},{"x":115,"y":220,"b":128.3},{"x":120,"y":220,"b":117.3},{"x":125,"y":220,"b":113.9},{"x":130,"y":220,"b":102.0},{"x":135,"y":220,"b":88.4},{"x":140,"y":220,"b":69.7},{"x":145,"y":220,"b":60.4},{"x":200,"y":220,"b":102.0},{"x":205,"y":220,"b":92.6},{"x":210,"y":220,"b":93.5},{"x":215,"y":220,"b":85.8},{"x":110,"y":225,"b":154.7},{"x":115,"y":225,"b":111.3},{"x":120,"y":225,"b":96.0},{"x":125,"y":225,"b":91.8},{"x":130,"y":225,"b":85.0},{"x":135,"y":225,"b":72.2},{"x":160,"y":225,"b":70.5},{"x":165,"y":225,"b":62.0},{"x":190,"y":225,"b":108.0},{"x":195,"y":225,"b":105.4},{"x":200,"y":225,"b":101.1},{"x":205,"y":225,"b":97.8},{"x":210,"y":225,"b":87.5},{"x":120,"y":230,"b":89.2},{"x":125,"y":230,"b":83.3},{"x":130,"y":230,"b":82.5},{"x":135,"y":230,"b":76.5},{"x":140,"y":230,"b":84.1},{"x":145,"y":230,"b":91.8},{"x":150,"y":230,"b":97.8},{"x":155,"y":230,"b":88.4},{"x":160,"y":230,"b":79.9},{"x":165,"y":230,"b":73.1},{"x":180,"y":230,"b":93.5},{"x":185,"y":230,"b":116.5},{"x":190,"y":230,"b":109.6},{"x":195,"y":230,"b":104.5},{"x":200,"y":230,"b":96.9},{"x":205,"y":230,"b":94.3},{"x":125,"y":235,"b":142.8},{"x":130,"y":235,"b":119.8},{"x":135,"y":235,"b":107.1},{"x":140,"y":235,"b":106.2},{"x":145,"y":235,"b":102.8},{"x":150,"y":235,"b":99.5},{"x":155,"y":235,"b":94.3},{"x":160,"y":235,"b":79.9},{"x":165,"y":235,"b":72.2},{"x":170,"y":235,"b":82.5},{"x":175,"y":235,"b":128.3},{"x":180,"y":235,"b":118.1},{"x":185,"y":235,"b":116.5},{"x":190,"y":235,"b":111.3},{"x":195,"y":235,"b":107.1},{"x":200,"y":235,"b":93.5},{"x":125,"y":240,"b":164.0},{"x":130,"y":240,"b":132.6},{"x":135,"y":240,"b":109.6},{"x":140,"y":240,"b":102.8},{"x":145,"y":240,"b":98.6},{"x":150,"y":240,"b":100.3},{"x":155,"y":240,"b":96.9},{"x":160,"y":240,"b":91.0},{"x":165,"y":240,"b":148.8},{"x":170,"y":240,"b":137.7},{"x":175,"y":240,"b":128.3},{"x":180,"y":240,"b":123.2},{"x":185,"y":240,"b":117.3},{"x":190,"y":240,"b":108.0},{"x":195,"y":240,"b":91.0},{"x":125,"y":245,"b":191.2},{"x":130,"y":245,"b":149.6},{"x":135,"y":245,"b":114.8},{"x":140,"y":245,"b":96.9},{"x":145,"y":245,"b":103.7},{"x":150,"y":245,"b":107.1},{"x":155,"y":245,"b":97.8},{"x":160,"y":245,"b":158.9},{"x":165,"y":245,"b":148.8},{"x":170,"y":245,"b":138.5},{"x":175,"y":245,"b":129.2},{"x":180,"y":245,"b":119.8},{"x":185,"y":245,"b":115.6},{"x":190,"y":245,"b":108.0},{"x":125,"y":250,"b":197.2},{"x":130,"y":250,"b":146.2},{"x":135,"y":250,"b":125.8},{"x":140,"y":250,"b":104.5},{"x":145,"y":250,"b":108.0},{"x":150,"y":250,"b":125.0},{"x":155,"y":250,"b":173.4},{"x":160,"y":250,"b":160.7},{"x":165,"y":250,"b":150.4},{"x":170,"y":250,"b":139.4},{"x":175,"y":250,"b":130.0},{"x":180,"y":250,"b":117.3},{"x":185,"y":250,"b":114.8},{"x":125,"y":255,"b":205.7},{"x":130,"y":255,"b":124.1},{"x":135,"y":255,"b":150.4},{"x":140,"y":255,"b":118.1},{"x":145,"y":255,"b":160.7},{"x":150,"y":255,"b":188.7},{"x":155,"y":255,"b":177.7},{"x":160,"y":255,"b":161.5},{"x":165,"y":255,"b":149.6},{"x":170,"y":255,"b":139.4},{"x":175,"y":255,"b":123.2},{"x":180,"y":255,"b":111.3},{"x":125,"y":260,"b":201.4},{"x":130,"y":260,"b":147.9},{"x":135,"y":260,"b":137.7},{"x":140,"y":260,"b":198.9},{"x":145,"y":260,"b":192.1},{"x":150,"y":260,"b":188.7},{"x":155,"y":260,"b":175.9},{"x":160,"y":260,"b":159.8},{"x":165,"y":260,"b":146.2},{"x":170,"y":260,"b":125.8},{"x":175,"y":260,"b":108.0},{"x":180,"y":260,"b":115.6},{"x":125,"y":265,"b":199.8},{"x":130,"y":265,"b":175.9},{"x":135,"y":265,"b":155.5},{"x":140,"y":265,"b":198.9},{"x":145,"y":265,"b":194.7},{"x":150,"y":265,"b":186.2},{"x":155,"y":265,"b":170.0},{"x":160,"y":265,"b":153.8},{"x":165,"y":265,"b":137.7},{"x":170,"y":265,"b":102.0},{"x":175,"y":265,"b":108.8},{"x":120,"y":270,"b":177.7},{"x":125,"y":270,"b":196.3},{"x":130,"y":270,"b":159.8},{"x":135,"y":270,"b":198.0},{"x":140,"y":270,"b":194.7},{"x":145,"y":270,"b":192.9},{"x":150,"y":270,"b":179.3},{"x":155,"y":270,"b":162.3},{"x":160,"y":270,"b":146.2},{"x":165,"y":270,"b":123.2},{"x":170,"y":270,"b":101.1},{"x":120,"y":275,"b":200.6},{"x":125,"y":275,"b":175.9},{"x":130,"y":275,"b":181.9},{"x":135,"y":275,"b":197.2},{"x":140,"y":275,"b":195.5},{"x":145,"y":275,"b":189.5},{"x":150,"y":275,"b":171.7},{"x":155,"y":275,"b":153.0},{"x":160,"y":275,"b":136.8},{"x":165,"y":275,"b":114.8},{"x":170,"y":275,"b":60.4},{"x":120,"y":280,"b":197.2},{"x":125,"y":280,"b":91.0},{"x":130,"y":280,"b":91.0},{"x":135,"y":280,"b":194.7},{"x":140,"y":280,"b":192.9},{"x":145,"y":280,"b":183.6},{"x":150,"y":280,"b":161.5},{"x":155,"y":280,"b":143.7},{"x":160,"y":280,"b":138.5},{"x":165,"y":280,"b":94.3},{"x":135,"y":285,"b":191.2},{"x":140,"y":285,"b":189.5},{"x":145,"y":285,"b":181.9},{"x":150,"y":285,"b":156.4},{"x":155,"y":285,"b":148.8},{"x":160,"y":285,"b":68.0}];

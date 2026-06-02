@@ -1,23 +1,22 @@
 # Benjamin Nguyen
-**Senior Director of Engineering, Member Industry Advisory Council**  
-*OKLAHOMA • Years Engineering Leadership*
+**Vice President of Engineering, Member Industry Advisory Council**  
+*OKLAHOMA • Years in Aerospace Engineering*
 
-Seasoned aerospace engineering executive with extensive experience in engineering design, management, and program/portfolio management. Currently serving on the Industry Advisory Council while leading comprehensive engineering operations that have driven significant organizational growth and cost savings.
+Aerospace engineering executive with deep experience in engineering design, management, and program/portfolio leadership. I lead engineering operations across the Sunvair Aerospace Group while serving on the Industry Advisory Council — and I now head our AI engineering team, bringing modern tooling to long-standing aerospace problems.
 
 ## Core Expertise
 - Engineering Design & Product Development
 - Engineering Management & Strategic Planning
-- Program/Portfolio Management
+- Program & Portfolio Management
 - Reverse Engineering & Cost Optimization
 - FAA Compliance & Regulatory Standards
 - Cross-functional Team Leadership
-- FMEA Techniques & Process Improvement
 
 ## Key Achievements
-- Led engineering activities across the Sunvair Aerospace Group's portfolio of companies
+- Lead engineering across the Sunvair Aerospace Group's portfolio of companies
 - Supported rapid organizational growth and multi-year facility expansion
-- Drove significant cost reduction through innovative tooling design and product development
-- Successfully collaborated with FAA DER, ACO, and MIDO for regulatory compliance and quality standards
-- Spearheaded reverse engineering initiatives that delivered substantial cost savings
-- Implemented advanced FMEA techniques, enhancing product reliability and performance
-- Led technological advancement of electronic computer systems, improving system performance and reliability
+- Cut costs through innovative tooling design and new product development
+- Partnered with FAA DER, ACO, and MIDO to meet regulatory and quality standards
+- Spearheaded reverse engineering initiatives that delivered substantial savings
+- Applied advanced FMEA techniques to improve product reliability and performance
+- Modernized electronic computer systems for better performance and reliability

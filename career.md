@@ -6,6 +6,6 @@
 *Oklahoma State University*
 
 ## 2017 - Present
-**Senior Director of Engineering**  
+**Vice President of Engineering**  
 *Sunvair Aerospace Group*
 
